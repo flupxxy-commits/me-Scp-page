@@ -31,14 +31,14 @@
             pointer-events: none;
         }
 
-        /* ===== مینی مپ (زیر LIVE ATTACK) ===== */
+        /* مینی مپ (زیر باکس اصلی) */
         #minimap {
             position: absolute;
-            top: 68%;  /* تنظیم شده برای قرارگیری زیر LIVE ATTACK */
+            top: 62%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 200px;
-            height: 120px;
+            width: 220px;
+            height: 130px;
             border: 2px solid #0f0;
             border-radius: 8px;
             background: rgba(0, 0, 0, 0.8);
@@ -56,7 +56,7 @@
 
         .info-box {
             position: absolute;
-            top: 38%; /* بالاتر برای جا دادن بقیه */
+            top: 35%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: rgba(0, 0, 0, 0.85);
@@ -77,60 +77,40 @@
             to   { border-color: #00ff00; box-shadow: 0 0 45px #00ff00; }
         }
 
-        /* LIVE ATTACK کوچک‌تر شده */
-        .live-attack-bottom {
-            position: absolute;
-            top: 55%; /* بین باکس و مینی مپ */
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #ff3333;
-            font-size: 16px;  /* کوچک‌تر از قبل */
-            font-weight: bold;
-            text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
-            z-index: 15;
-            white-space: nowrap;
-            animation: livePulse 0.8s infinite alternate;
-            letter-spacing: 2px;
-            background: rgba(0,0,0,0.6);
-            padding: 4px 14px;
-            border-radius: 20px;
-            border: 2px solid #ff0000;
-            backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .live-attack-bottom i {
-            font-size: 18px;  /* آیکون کوچک‌تر */
-            color: #ff0000;
-            filter: drop-shadow(0 0 8px #ff0000);
-        }
-
-        @keyframes livePulse {
-            from { opacity: 0.7; text-shadow: 0 0 10px #ff0000; }
-            to   { opacity: 1; text-shadow: 0 0 20px #ff0000; transform: translate(-50%, -50%) scale(1.03); }
-        }
-
         .fake-header {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
             margin-bottom: 8px;
             color: #0f0;
-            font-size: 18px;
+            font-size: 22px;
             text-shadow: 0 0 8px #0f0;
         }
 
-        .fake-header i {
-            font-size: 22px;
+        /* آیکون تلگرام با رنگ ترکیبی (آبی، سبز، سیاه) */
+        .telegram-icon-mixed {
+            font-size: 28px;
+            background: linear-gradient(45deg, #0088cc, #0f0, #000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px #0f0);
             animation: rotate 3s infinite linear;
         }
 
         @keyframes rotate {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* متن Scp با پرچم ایران و دزدان دریایی */
+        .scp-title {
+            color: #0f0;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 0 0 15px #0f0;
+            margin: 10px 0;
+            letter-spacing: 2px;
         }
 
         .hacker-text {
@@ -214,36 +194,27 @@
             flex-wrap: wrap;
         }
 
-        .tag-888 {
-            font-size: 10px;
-            font-weight: bold;
-            color: #ffaa00;
-            background: rgba(255, 170, 0, 0.2);
-            border: 1px solid #ffaa00;
-            border-radius: 3px;
-            padding: 2px 5px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-            box-shadow: 0 0 5px #ffaa00;
-        }
-
-        .tag-skull {
-            font-size: 10px;
+        /* تگ Scam (قرمز و سیاه) */
+        .tag-scam {
+            font-size: 11px;
             font-weight: bold;
             color: #ff0000;
-            background: rgba(255, 0, 0, 0.2);
+            background: linear-gradient(145deg, #300, #000);
             border: 1px solid #ff0000;
-            border-radius: 3px;
-            padding: 2px 5px;
+            border-radius: 4px;
+            padding: 3px 8px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             display: inline-flex;
             align-items: center;
-            gap: 3px;
-            box-shadow: 0 0 5px #ff0000;
+            gap: 4px;
+            box-shadow: 0 0 8px #ff0000;
+            text-shadow: 0 0 5px #ff0000;
+        }
+
+        .tag-scam i {
+            color: #ff0000;
+            font-size: 12px;
         }
 
         .fake-warning {
@@ -299,28 +270,6 @@
             50% { opacity: 0; }
             100% { opacity: 1; }
         }
-
-        .hack-button {
-            background: transparent;
-            border: 2px solid #0f0;
-            color: #0f0;
-            padding: 8px 14px;
-            font-family: inherit;
-            font-size: 16px;
-            margin-top: 8px;
-            cursor: pointer;
-            transition: 0.3s;
-            width: 100%;
-            text-transform: uppercase;
-            font-weight: bold;
-            border-radius: 5px;
-        }
-
-        .hack-button:hover {
-            background: #0f0;
-            color: black;
-            box-shadow: 0 0 25px #0f0;
-        }
     </style>
 </head>
 <body>
@@ -332,44 +281,43 @@
 
     <div class="info-box">
         <div class="fake-header">
-            <i class="fab fa-telegram"></i>
-            <span>TELEGRAM SCAM</span>
-            <i class="fab fa-telegram"></i>
+            <i class="fab fa-telegram telegram-icon-mixed"></i>
+            <span style="color:#0f0;">TELEGRAM SCAM</span>
+            <i class="fab fa-telegram telegram-icon-mixed"></i>
         </div>
 
-        <div class="fake-warning">
-            ⚡ GLOBAL CYBER ATTACK ⚡
+        <!-- عنوان جدید Scp با پرچم‌ها -->
+        <div class="scp-title">
+            Scp 🇮🇷🏴‍☠️
         </div>
 
         <div class="hacker-text">> Telegram session compromised_</div>
 
+        <!-- اکانت با تگ Scam (قرمز/سیاه) -->
         <a href="https://t.me/ScpThe" target="_blank" class="telegram-item">
             <i class="fab fa-telegram telegram-icon"></i>
             <div class="id-content">
                 <div class="id-label">ACCOUNT</div>
                 <div class="id-value">
                     @ScpThe
-                    <span class="tag-888"><i class="fas fa-phone"></i> +888</span>
-                    <span class="tag-skull">🏴‍☠️</span>
+                    <span class="tag-scam"><i class="fas fa-skull"></i> SCAM</span>
                 </div>
             </div>
         </a>
 
+        <!-- کانال با تگ Scam (قرمز/سیاه) -->
         <a href="https://t.me/TheScph" target="_blank" class="telegram-item">
             <i class="fab fa-telegram telegram-icon"></i>
             <div class="id-content">
                 <div class="id-label">CHANNEL</div>
                 <div class="id-value">
                     @TheScph
-                    <span class="tag-888"><i class="fas fa-phone"></i> +888</span>
-                    <span class="tag-skull">🏴‍☠️</span>
+                    <span class="tag-scam"><i class="fas fa-skull"></i> SCAM</span>
                 </div>
             </div>
         </a>
 
-        <button class="hack-button" onclick="alert('⚠️ This is a FAKE page. No real attack happened.')">
-            <i class="fas fa-skull"></i> LAUNCH ATTACK <i class="fas fa-skull"></i>
-        </button>
+        <!-- دکمه LAUNCH ATTACK حذف شد -->
 
         <div class="command-line">
             <span style="color:#88ff88;">root@anonymous:~$</span> ./ddos --target=global<br>
@@ -377,18 +325,12 @@
         </div>
     </div>
 
-    <!-- LIVE ATTACK کوچک زیر باکس -->
-    <div class="live-attack-bottom">
-        <i class="fas fa-bolt"></i> LIVE CYBER ATTACK <i class="fas fa-bolt"></i>
-    </div>
-
-    <!-- مینی مپ زیر LIVE ATTACK -->
+    <!-- مینی مپ (LIVE ATTACK حذف شد) -->
     <div id="minimap">
-        <canvas id="minimapCanvas" width="200" height="120"></canvas>
+        <canvas id="minimapCanvas" width="220" height="130"></canvas>
     </div>
 
     <script>
-        // ========== ماتریکس ==========
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -414,21 +356,21 @@
         }
         setInterval(drawMatrix, 35);
 
-        // ========== مینی مپ با حملات سایبری ==========
+        // مینی مپ با حملات سایبری
         const miniCanvas = document.getElementById('minimapCanvas');
         const miniCtx = miniCanvas.getContext('2d');
-        miniCanvas.width = 200;
-        miniCanvas.height = 120;
+        miniCanvas.width = 220;
+        miniCanvas.height = 130;
 
         const countries = [
-            { name: 'Iran', x: 35, y: 60 },
-            { name: 'India', x: 70, y: 75 },
-            { name: 'China', x: 100, y: 50 },
-            { name: 'South Korea', x: 115, y: 45 },
-            { name: 'Japan', x: 135, y: 48 },
-            { name: 'Russia', x: 85, y: 25 },
-            { name: 'USA', x: 175, y: 50 },
-            { name: 'North Korea', x: 110, y: 42 }
+            { name: 'Iran', x: 40, y: 65 },
+            { name: 'India', x: 75, y: 80 },
+            { name: 'China', x: 110, y: 55 },
+            { name: 'South Korea', x: 125, y: 48 },
+            { name: 'Japan', x: 150, y: 52 },
+            { name: 'Russia', x: 95, y: 28 },
+            { name: 'USA', x: 195, y: 55 },
+            { name: 'North Korea', x: 120, y: 45 }
         ];
 
         let attacks = [];
@@ -481,10 +423,10 @@
             miniCtx.setLineDash([]);
 
             // نام کشورها
-            miniCtx.font = '6px monospace';
+            miniCtx.font = '7px monospace';
             miniCtx.fillStyle = '#88ff88';
             countries.forEach(c => {
-                miniCtx.fillText(c.name, c.x - 15, c.y - 8);
+                miniCtx.fillText(c.name, c.x - 18, c.y - 8);
             });
 
             // نقاط کشورها
