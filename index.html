@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="fa" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram SCAM • HACKED</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: black;
+            font-family: 'Courier New', monospace;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ===== کانواس ماتریکس ===== */
+        #matrixCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        /* ===== مینی مپ (نقشه جهان) ===== */
+        #minimap {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            height: 180px;
+            border: 2px solid #0f0;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 30px #0f0;
+            z-index: 20;
+            backdrop-filter: blur(5px);
+            overflow: hidden;
+        }
+
+        #minimapCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* ===== باکس اصلی ===== */
+        .info-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.85);
+            border: 3px solid #0f0;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 70px #0f0, inset 0 0 20px #0f0;
+            z-index: 10;
+            text-align: center;
+            min-width: 500px;
+            backdrop-filter: blur(10px);
+            animation: borderPulse 2s infinite alternate;
+        }
+
+        @keyframes borderPulse {
+            from { border-color: #0f0; box-shadow: 0 0 40px #0f0; }
+            to   { border-color: #00ff00; box-shadow: 0 0 80px #00ff00; }
+        }
+
+        /* هدر جعلی */
+        .fake-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: #0f0;
+            font-size: 28px;
+            text-shadow: 0 0 20px #0f0;
+        }
+
+        .fake-header i {
+            font-size: 40px;
+            animation: rotate 3s infinite linear;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .fake-header span {
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        /* تایپینگ */
+        .hacker-text {
+            color: #0f0;
+            font-size: 24px;
+            margin: 15px 0;
+            text-shadow: 0 0 10px #0f0;
+            font-weight: bold;
+            border-right: 2px solid #0f0;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3s steps(30, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #0f0; }
+        }
+
+        /* آیتم‌های تلگرام */
+        .telegram-item {
+            background: rgba(0, 255, 0, 0.15);
+            border: 2px solid #0f0;
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 25px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            transition: 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            position: relative;
+        }
+
+        .telegram-item:hover {
+            background: rgba(0, 255, 0, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 0 40px #0f0;
+        }
+
+        .telegram-icon {
+            font-size: 50px;
+            color: #0f0;
+            filter: drop-shadow(0 0 15px #0f0);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .id-content {
+            text-align: left;
+            flex: 1;
+        }
+
+        .id-label {
+            font-size: 14px;
+            opacity: 0.9;
+            color: #88ff88;
+            letter-spacing: 2px;
+        }
+
+        .id-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 8px #0f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* تگ‌های Scam و Fake (قرمز، کوچک) */
+        .tag {
+            font-size: 14px;
+            font-weight: bold;
+            color: #ff3333;
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid #ff0000;
+            border-radius: 4px;
+            padding: 2px 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            box-shadow: 0 0 8px #ff0000;
+        }
+
+        /* هشدار */
+        .fake-warning {
+            background: rgba(255, 0, 0, 0.3);
+            border: 2px dashed #ff0000;
+            padding: 10px;
+            margin: 15px 0;
+            color: #ffaaaa;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: blinkWarning 0.8s infinite;
+        }
+
+        @keyframes blinkWarning {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        /* آیکون آنانیموس */
+        .anonymous-box {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 30;
+            font-size: 60px;
+            color: #0f0;
+            filter: drop-shadow(0 0 30px #0f0);
+            animation: float 4s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* خط فرمان */
+        .command-line {
+            color: #88ff88;
+            font-size: 18px;
+            margin-top: 30px;
+            text-align: left;
+            border-top: 2px solid #0f0;
+            padding-top: 20px;
+        }
+
+        .cursor {
+            animation: cursor-blink 1s infinite;
+        }
+
+        @keyframes cursor-blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* دکمه جعلی */
+        .hack-button {
+            background: transparent;
+            border: 2px solid #0f0;
+            color: #0f0;
+            padding: 12px 24px;
+            font-family: inherit;
+            font-size: 20px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .hack-button:hover {
+            background: #0f0;
+            color: black;
+            box-shadow: 0 0 40px #0f0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrixCanvas"></canvas>
+
+    <div class="anonymous-box">
+        <i class="fas fa-user-secret"></i>
+    </div>
+
+    <div id="minimap">
+        <canvas id="minimapCanvas" width="300" height="180"></canvas>
+    </div>
+
+    <div class="info-box">
+        <div class="fake-header">
+            <i class="fab fa-telegram"></i>
+            <span>TELEGRAM SCAM</span>
+            <i class="fab fa-telegram"></i>
+        </div>
+
+        <div class="fake-warning">
+            ⚡ GLOBAL ATTACK SIMULATION ⚡
+        </div>
+
+        <div class="hacker-text">> Telegram session compromised_</div>
+
+        <!-- اکانت با تگ SCAM -->
+        <a href="https://t.me/ScpThe" target="_blank" class="telegram-item">
+            <i class="fab fa-telegram telegram-icon"></i>
+            <div class="id-content">
+                <div class="id-label">ACCOUNT</div>
+                <div class="id-value">
+                    @ScpThe
+                    <span class="tag">SCAM</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- کانال با تگ FAKE -->
+        <a href="https://t.me/TheScph" target="_blank" class="telegram-item">
+            <i class="fab fa-telegram telegram-icon"></i>
+            <div class="id-content">
+                <div class="id-label">CHANNEL</div>
+                <div class="id-value">
+                    @TheScph
+                    <span class="tag">FAKE</span>
+                </div>
+            </div>
+        </a>
+
+        <button class="hack-button" onclick="alert('⚠️ This is a FAKE page. No real attack happened.')">
+            <i class="fas fa-skull"></i> LAUNCH ATTACK <i class="fas fa-skull"></i>
+        </button>
+
+        <div class="command-line">
+            <span style="color:#88ff88;">root@anonymous:~$</span> ./attack --target=global<br>
+            <span style="color:#88ff88;">>></span> Missiles en route... <span class="cursor">_</span>
+        </div>
+    </div>
+
+    <script>
+        // ========== ماتریکس ==========
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+        for (let x = 0; x < columns; x++) drops[x] = Math.floor(Math.random() * canvas.height / fontSize);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0f0';
+            ctx.font = fontSize + 'px monospace';
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 35);
+
+        // ========== مینی مپ (نقشه جهان با حملات) ==========
+        const miniCanvas = document.getElementById('minimapCanvas');
+        const miniCtx = miniCanvas.getContext('2d');
+        miniCanvas.width = 300;
+        miniCanvas.height = 180;
+
+        // مختصات نقاط (بر حسب px روی کانواس)
+        const countries = [
+            { name: 'Iran', x: 50, y: 80 },   // تقریبی
+            { name: 'India', x: 100, y: 100 },
+            { name: 'China', x: 140, y: 70 },
+            { name: 'Russia', x: 120, y: 40 },
+            { name: 'USA', x: 240, y: 70 }    // هدف
+        ];
+
+        // موشک‌ها (از هر کشور به جز USA به سمت USA)
+        let missiles = [];
+        function createMissile() {
+            // انتخاب یک مبدأ تصادفی (غیر از USA)
+            const srcIndex = Math.floor(Math.random() * (countries.length - 1));
+            const src = countries[srcIndex];
+            const dst = countries[countries.length - 1]; // USA
+            missiles.push({
+                src: src,
+                dst: dst,
+                progress: 0, // 0 تا 1
+                speed: 0.005 + Math.random() * 0.01,
+                active: true
+            });
+        }
+
+        // هر 2 ثانیه یک موشک جدید
+        setInterval(createMissile, 2000);
+        // چندتا اولیه
+        for (let i = 0; i < 5; i++) setTimeout(createMissile, i * 300);
+
+        function drawMinimap() {
+            miniCtx.clearRect(0, 0, miniCanvas.width, miniCanvas.height);
+            
+            // پس‌زمینه آبی تیره (اقیانوس)
+            miniCtx.fillStyle = '#001122';
+            miniCtx.fillRect(0, 0, miniCanvas.width, miniCanvas.height);
+
+            // رسم خشکی‌ها (نقاط ساده)
+            miniCtx.fillStyle = '#224422';
+            miniCtx.strokeStyle = '#00aa00';
+            miniCtx.lineWidth = 1;
+
+            // خطوط مرزهای خیالی
+            miniCtx.beginPath();
+            miniCtx.strokeStyle = '#00aa00';
+            miniCtx.setLineDash([3, 5]);
+            // چند خط منحنی برای شبیه‌سازی قاره‌ها
+            miniCtx.moveTo(30, 140);
+            miniCtx.lineTo(80, 120);
+            miniCtx.lineTo(130, 130);
+            miniCtx.lineTo(180, 100);
+            miniCtx.lineTo(250, 110);
+            miniCtx.stroke();
+            miniCtx.setLineDash([]);
+
+            // نام کشورها (اختیاری)
+            miniCtx.font = '8px monospace';
+            miniCtx.fillStyle = '#88ff88';
+            countries.forEach(c => {
+                miniCtx.fillText(c.name, c.x - 15, c.y - 5);
+            });
+
+            // رسم نقاط کشورها
+            countries.forEach(c => {
+                miniCtx.fillStyle = (c.name === 'USA') ? '#ffaa00' : '#00ff00';
+                miniCtx.shadowColor = (c.name === 'USA') ? '#ffaa00' : '#0f0';
+                miniCtx.shadowBlur = 10;
+                miniCtx.beginPath();
+                miniCtx.arc(c.x, c.y, 5, 0, Math.PI*2);
+                miniCtx.fill();
+            });
+
+            // رسم خطوط حمله (موشک‌ها)
+            miniCtx.shadowBlur = 15;
+            miniCtx.shadowColor = '#ff0000';
+            missiles = missiles.filter(m => m.progress < 1); // حذف موشک‌های رسیده
+            missiles.forEach(m => {
+                // محاسبه موقعیت فعلی موشک
+                const x = m.src.x + (m.dst.x - m.src.x) * m.progress;
+                const y = m.src.y + (m.dst.y - m.src.y) * m.progress;
+
+                // خط مسیر (با شفافیت)
+                miniCtx.strokeStyle = '#ff6666';
+                miniCtx.lineWidth = 1;
+                miniCtx.globalAlpha = 0.3;
+                miniCtx.beginPath();
+                miniCtx.moveTo(m.src.x, m.src.y);
+                miniCtx.lineTo(m.dst.x, m.dst.y);
+                miniCtx.stroke();
+
+                // خود موشک
+                miniCtx.fillStyle = '#ff0000';
+                miniCtx.shadowColor = '#ff0000';
+                miniCtx.globalAlpha = 1;
+                miniCtx.beginPath();
+                miniCtx.arc(x, y, 3, 0, Math.PI*2);
+                miniCtx.fill();
+
+                // پیشرفت
+                m.progress += m.speed;
+            });
+
+            // نوشته "CYBER ATTACK"
+            miniCtx.font = 'bold 10px monospace';
+            miniCtx.fillStyle = '#ff0000';
+            miniCtx.shadowColor = '#ff0000';
+            miniCtx.shadowBlur = 10;
+            miniCtx.fillText('LIVE CYBER ATTACK', 10, 20);
+
+            requestAnimationFrame(drawMinimap);
+        }
+
+        drawMinimap();
+
+        // ========== هشدار اولیه ==========
+        window.onload = function() {
+            setTimeout(() => {
+                alert("⚠️ GLOBAL HACK SIMULATION ⚠️\nMissiles launched from multiple countries to USA.");
+            }, 1500);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+    </html>
