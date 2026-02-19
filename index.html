@@ -103,14 +103,18 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* متن Scp با پرچم ایران و دزدان دریایی */
+        /* عنوان Scp با پرچم‌ها به صورت 🏴‍☠️ Scp 🇮🇷 */
         .scp-title {
             color: #0f0;
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
             text-shadow: 0 0 15px #0f0;
             margin: 10px 0;
             letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .hacker-text {
@@ -194,7 +198,7 @@
             flex-wrap: wrap;
         }
 
-        /* تگ Scam (قرمز و سیاه) */
+        /* تگ Scam (قرمز و سیاه) با پرچم دزدان دریایی جلو */
         .tag-scam {
             font-size: 11px;
             font-weight: bold;
@@ -210,11 +214,6 @@
             gap: 4px;
             box-shadow: 0 0 8px #ff0000;
             text-shadow: 0 0 5px #ff0000;
-        }
-
-        .tag-scam i {
-            color: #ff0000;
-            font-size: 12px;
         }
 
         .fake-warning {
@@ -286,38 +285,36 @@
             <i class="fab fa-telegram telegram-icon-mixed"></i>
         </div>
 
-        <!-- عنوان جدید Scp با پرچم‌ها -->
+        <!-- عنوان Scp به صورت 🏴‍☠️ Scp 🇮🇷 -->
         <div class="scp-title">
-            Scp 🇮🇷🏴‍☠️
+            <span>🏴‍☠️</span> Scp <span>🇮🇷</span>
         </div>
 
         <div class="hacker-text">> Telegram session compromised_</div>
 
-        <!-- اکانت با تگ Scam (قرمز/سیاه) -->
+        <!-- اکانت با تگ Scam (پرچم دزدان دریایی جلو) -->
         <a href="https://t.me/ScpThe" target="_blank" class="telegram-item">
             <i class="fab fa-telegram telegram-icon"></i>
             <div class="id-content">
                 <div class="id-label">ACCOUNT</div>
                 <div class="id-value">
                     @ScpThe
-                    <span class="tag-scam"><i class="fas fa-skull"></i> SCAM</span>
+                    <span class="tag-scam">🏴‍☠️ SCAM</span>
                 </div>
             </div>
         </a>
 
-        <!-- کانال با تگ Scam (قرمز/سیاه) -->
+        <!-- کانال با تگ Scam (پرچم دزدان دریایی جلو) -->
         <a href="https://t.me/TheScph" target="_blank" class="telegram-item">
             <i class="fab fa-telegram telegram-icon"></i>
             <div class="id-content">
                 <div class="id-label">CHANNEL</div>
                 <div class="id-value">
                     @TheScph
-                    <span class="tag-scam"><i class="fas fa-skull"></i> SCAM</span>
+                    <span class="tag-scam">🏴‍☠️ SCAM</span>
                 </div>
             </div>
         </a>
-
-        <!-- دکمه LAUNCH ATTACK حذف شد -->
 
         <div class="command-line">
             <span style="color:#88ff88;">root@anonymous:~$</span> ./ddos --target=global<br>
@@ -325,7 +322,7 @@
         </div>
     </div>
 
-    <!-- مینی مپ (LIVE ATTACK حذف شد) -->
+    <!-- مینی مپ -->
     <div id="minimap">
         <canvas id="minimapCanvas" width="220" height="130"></canvas>
     </div>
