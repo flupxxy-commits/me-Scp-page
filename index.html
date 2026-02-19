@@ -31,17 +31,18 @@
             pointer-events: none;
         }
 
-        /* مینی مپ */
+        /* ===== مینی مپ (زیر LIVE ATTACK) ===== */
         #minimap {
             position: absolute;
-            bottom: 8px;
-            right: 8px;
-            width: 150px;
-            height: 90px;
+            top: 68%;  /* تنظیم شده برای قرارگیری زیر LIVE ATTACK */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 120px;
             border: 2px solid #0f0;
-            border-radius: 6px;
+            border-radius: 8px;
             background: rgba(0, 0, 0, 0.8);
-            box-shadow: 0 0 15px #0f0;
+            box-shadow: 0 0 20px #0f0;
             z-index: 20;
             backdrop-filter: blur(5px);
             overflow: hidden;
@@ -53,10 +54,9 @@
             display: block;
         }
 
-        /* باکس اصلی */
         .info-box {
             position: absolute;
-            top: 45%;
+            top: 38%; /* بالاتر برای جا دادن بقیه */
             left: 50%;
             transform: translate(-50%, -50%);
             background: rgba(0, 0, 0, 0.85);
@@ -77,39 +77,39 @@
             to   { border-color: #00ff00; box-shadow: 0 0 45px #00ff00; }
         }
 
-        /* متن LIVE ATTACK زیر باکس (حملات سایبری) */
+        /* LIVE ATTACK کوچک‌تر شده */
         .live-attack-bottom {
             position: absolute;
-            top: 63%;
+            top: 55%; /* بین باکس و مینی مپ */
             left: 50%;
             transform: translate(-50%, -50%);
             color: #ff3333;
-            font-size: 20px;
+            font-size: 16px;  /* کوچک‌تر از قبل */
             font-weight: bold;
-            text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
+            text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
             z-index: 15;
             white-space: nowrap;
             animation: livePulse 0.8s infinite alternate;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             background: rgba(0,0,0,0.6);
-            padding: 6px 18px;
-            border-radius: 25px;
+            padding: 4px 14px;
+            border-radius: 20px;
             border: 2px solid #ff0000;
             backdrop-filter: blur(5px);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .live-attack-bottom i {
-            font-size: 22px;
+            font-size: 18px;  /* آیکون کوچک‌تر */
             color: #ff0000;
-            filter: drop-shadow(0 0 10px #ff0000);
+            filter: drop-shadow(0 0 8px #ff0000);
         }
 
         @keyframes livePulse {
-            from { opacity: 0.7; text-shadow: 0 0 15px #ff0000; }
-            to   { opacity: 1; text-shadow: 0 0 30px #ff0000; transform: translate(-50%, -50%) scale(1.05); }
+            from { opacity: 0.7; text-shadow: 0 0 10px #ff0000; }
+            to   { opacity: 1; text-shadow: 0 0 20px #ff0000; transform: translate(-50%, -50%) scale(1.03); }
         }
 
         .fake-header {
@@ -330,10 +330,6 @@
         <i class="fas fa-user-secret"></i>
     </div>
 
-    <div id="minimap">
-        <canvas id="minimapCanvas" width="150" height="90"></canvas>
-    </div>
-
     <div class="info-box">
         <div class="fake-header">
             <i class="fab fa-telegram"></i>
@@ -381,9 +377,14 @@
         </div>
     </div>
 
-    <!-- متن LIVE ATTACK زیر باکس -->
+    <!-- LIVE ATTACK کوچک زیر باکس -->
     <div class="live-attack-bottom">
         <i class="fas fa-bolt"></i> LIVE CYBER ATTACK <i class="fas fa-bolt"></i>
+    </div>
+
+    <!-- مینی مپ زیر LIVE ATTACK -->
+    <div id="minimap">
+        <canvas id="minimapCanvas" width="200" height="120"></canvas>
     </div>
 
     <script>
@@ -413,25 +414,23 @@
         }
         setInterval(drawMatrix, 35);
 
-        // ========== مینی مپ با حملات سایبری (DDoS) ==========
+        // ========== مینی مپ با حملات سایبری ==========
         const miniCanvas = document.getElementById('minimapCanvas');
         const miniCtx = miniCanvas.getContext('2d');
-        miniCanvas.width = 150;
-        miniCanvas.height = 90;
+        miniCanvas.width = 200;
+        miniCanvas.height = 120;
 
-        // لیست کشورها (با مختصات مناسب مینی مپ)
         const countries = [
-            { name: 'Iran', x: 25, y: 45 },
-            { name: 'India', x: 50, y: 55 },
-            { name: 'China', x: 75, y: 35 },
-            { name: 'South Korea', x: 85, y: 30 },
-            { name: 'Japan', x: 100, y: 32 },
-            { name: 'Russia', x: 65, y: 15 },
-            { name: 'USA', x: 135, y: 35 },
-            { name: 'North Korea', x: 82, y: 28 }
+            { name: 'Iran', x: 35, y: 60 },
+            { name: 'India', x: 70, y: 75 },
+            { name: 'China', x: 100, y: 50 },
+            { name: 'South Korea', x: 115, y: 45 },
+            { name: 'Japan', x: 135, y: 48 },
+            { name: 'Russia', x: 85, y: 25 },
+            { name: 'USA', x: 175, y: 50 },
+            { name: 'North Korea', x: 110, y: 42 }
         ];
 
-        // حملات سایبری (به جای موشک، بسته‌های داده)
         let attacks = [];
 
         function createCyberAttack() {
@@ -448,37 +447,32 @@
                 src: src,
                 dst: dst,
                 progress: 0,
-                speed: 0.01 + Math.random() * 0.02, // سرعت بسته‌ها
-                packets: [] // برای نمایش چند بسته همزمان
+                speed: 0.01 + Math.random() * 0.02
             });
         }
 
-        // ایجاد حملات اولیه
         for (let i = 0; i < 8; i++) {
             setTimeout(createCyberAttack, i * 400);
         }
-        // هر 1.2 ثانیه یک حمله جدید
         setInterval(createCyberAttack, 1200);
 
         function drawMinimap() {
             miniCtx.clearRect(0, 0, miniCanvas.width, miniCanvas.height);
             
-            // پس‌زمینه (شبیه شبکه)
             miniCtx.fillStyle = '#001122';
             miniCtx.fillRect(0, 0, miniCanvas.width, miniCanvas.height);
 
-            // خطوط شبکه (نقطه‌چین)
+            // خطوط شبکه
             miniCtx.strokeStyle = '#00aa00';
             miniCtx.lineWidth = 0.5;
             miniCtx.setLineDash([2, 3]);
-            for (let i = 0; i < miniCanvas.width; i += 20) {
+            for (let i = 0; i < miniCanvas.width; i += 25) {
                 miniCtx.beginPath();
                 miniCtx.moveTo(i, 0);
                 miniCtx.lineTo(i, miniCanvas.height);
-                miniCtx.strokeStyle = '#00aa00';
                 miniCtx.stroke();
             }
-            for (let i = 0; i < miniCanvas.height; i += 20) {
+            for (let i = 0; i < miniCanvas.height; i += 25) {
                 miniCtx.beginPath();
                 miniCtx.moveTo(0, i);
                 miniCtx.lineTo(miniCanvas.width, i);
@@ -486,65 +480,58 @@
             }
             miniCtx.setLineDash([]);
 
-            // نام کشورها (با فونت خیلی کوچک)
-            miniCtx.font = '5px monospace';
+            // نام کشورها
+            miniCtx.font = '6px monospace';
             miniCtx.fillStyle = '#88ff88';
             countries.forEach(c => {
-                miniCtx.fillText(c.name, c.x - 12, c.y - 6);
+                miniCtx.fillText(c.name, c.x - 15, c.y - 8);
             });
 
             // نقاط کشورها
             countries.forEach(c => {
                 miniCtx.fillStyle = '#00ff00';
                 miniCtx.shadowColor = '#0f0';
-                miniCtx.shadowBlur = 5;
+                miniCtx.shadowBlur = 6;
                 miniCtx.beginPath();
-                miniCtx.arc(c.x, c.y, 3, 0, Math.PI*2);
+                miniCtx.arc(c.x, c.y, 4, 0, Math.PI*2);
                 miniCtx.fill();
             });
 
-            // رسم حملات سایبری (بسته‌های داده)
+            // حملات
             attacks = attacks.filter(a => a.progress < 1);
-
             attacks.forEach(attack => {
-                // پیشرفت حمله
                 attack.progress += attack.speed;
-
-                // موقعیت فعلی بسته اصلی
                 const x = attack.src.x + (attack.dst.x - attack.src.x) * attack.progress;
                 const y = attack.src.y + (attack.dst.y - attack.src.y) * attack.progress;
 
-                // خط مسیر (نقطه‌چین و کمرنگ)
+                // خط مسیر
                 miniCtx.strokeStyle = '#ff6666';
-                miniCtx.lineWidth = 0.8;
-                miniCtx.setLineDash([2, 3]);
+                miniCtx.lineWidth = 1;
+                miniCtx.setLineDash([3, 3]);
                 miniCtx.globalAlpha = 0.3;
                 miniCtx.beginPath();
                 miniCtx.moveTo(attack.src.x, attack.src.y);
                 miniCtx.lineTo(attack.dst.x, attack.dst.y);
                 miniCtx.stroke();
 
-                // بسته‌های داده (چند نقطه در طول مسیر)
+                // بسته‌های داده
                 miniCtx.setLineDash([]);
                 miniCtx.fillStyle = '#ff0000';
                 miniCtx.shadowColor = '#ff0000';
                 miniCtx.shadowBlur = 8;
                 miniCtx.globalAlpha = 0.9;
-
-                // بسته اصلی
                 miniCtx.beginPath();
-                miniCtx.arc(x, y, 2, 0, Math.PI*2);
+                miniCtx.arc(x, y, 2.5, 0, Math.PI*2);
                 miniCtx.fill();
 
-                // بسته‌های عقب‌تر (برای نمایش ترافیک)
-                for (let i = 1; i <= 3; i++) {
-                    const backProgress = attack.progress - i * 0.05;
+                for (let i = 1; i <= 2; i++) {
+                    const backProgress = attack.progress - i * 0.07;
                     if (backProgress > 0) {
                         const bx = attack.src.x + (attack.dst.x - attack.src.x) * backProgress;
                         const by = attack.src.y + (attack.dst.y - attack.src.y) * backProgress;
-                        miniCtx.globalAlpha = 0.5 - i * 0.1;
+                        miniCtx.globalAlpha = 0.5;
                         miniCtx.beginPath();
-                        miniCtx.arc(bx, by, 1.5, 0, Math.PI*2);
+                        miniCtx.arc(bx, by, 2, 0, Math.PI*2);
                         miniCtx.fill();
                     }
                 }
@@ -552,13 +539,11 @@
 
             miniCtx.globalAlpha = 1;
             miniCtx.shadowBlur = 0;
-
-            // نوشته "DDoS ATTACK"
-            miniCtx.font = 'bold 6px monospace';
+            miniCtx.font = 'bold 7px monospace';
             miniCtx.fillStyle = '#ff0000';
             miniCtx.shadowColor = '#ff0000';
             miniCtx.shadowBlur = 5;
-            miniCtx.fillText('DDoS', 8, 12);
+            miniCtx.fillText('DDoS', 10, 15);
 
             requestAnimationFrame(drawMinimap);
         }
@@ -577,4 +562,4 @@
         });
     </script>
 </body>
-            </html>
+    </html>
